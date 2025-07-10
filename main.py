@@ -191,8 +191,11 @@ if __name__ == "__main__":
 
   INITIAL_BOARD_STATE = new_board(rows=ROWS, cols=COLS)
 
-  # first move placed in middle column
-  FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, 3, player="X", gravity=GRAVITY)
+  # first tic-tac-toe move placed in center
+  FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, (1, 1), player="X", gravity=GRAVITY)
+
+  # first connect-4 move placed in middle column
+  # FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, 3, player="X", gravity=GRAVITY)
 
   board_tree = build_board_tree(FIRST_MOVE, player="O", rule=N_SEQUENCE, gravity=GRAVITY, depth=1, max_depth=42)
   draw_moves(board_tree, rows=ROWS, cols=COLS)
