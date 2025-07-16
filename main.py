@@ -179,23 +179,31 @@ def build_board_tree(board, player, rule=3, gravity=False, depth=0, max_depth=9)
 
 if __name__ == "__main__":
 
-  # game rule constants (tic-tac-toe)
-  ROWS, COLS = 3, 3
-  N_SEQUENCE = 3
-  GRAVITY = False
+    GAME_TYPES = {
+        "tic-tac-toe": {
+            "ROWS": 3,
+            "COLS": 3,
+            "WIN_CON": 3,
+            "GRAVITY": False,
+        },
+        "connect-4": {
+            "ROWS": 6,
+            "COLS": 7,
+            "WIN_CON": 4,
+            "GRAVITY": True,
+        },
+    }
 
-  # game rule constants (connect-4)
-  # ROWS, COLS = 6, 7
-  # N_SEQUENCE = 4
-  # GRAVITY = True
+    GAME_TYPE = "connect-4"
+    GAME = GAME_TYPES[GAME_TYPE]
+    ROWS = GAME["ROWS"]
+    COLS = GAME["COLS"]
+    WIN_CON = GAME["WIN_CON"]
+    GRAVITY = GAME["GRAVITY"]
 
-  INITIAL_BOARD_STATE = new_board(rows=ROWS, cols=COLS)
+    INITIAL_BOARD_STATE = new_board(rows=ROWS, cols=COLS)
+    PLAY_CENTER_MOVE = (1, 1) if GAME_TYPE == "tic-tac-toe" else 3
+    FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, PLAY_CENTER_MOVE, player="X", gravity=GRAVITY)
 
-  # first tic-tac-toe move placed in center
-  FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, (1, 1), player="X", gravity=GRAVITY)
-
-  # first connect-4 move placed in middle column
-  # FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, 3, player="X", gravity=GRAVITY)
-
-  board_tree = build_board_tree(FIRST_MOVE, player="O", rule=N_SEQUENCE, gravity=GRAVITY, depth=1, max_depth=42)
-  draw_moves(board_tree, rows=ROWS, cols=COLS)
+    board_tree = build_board_tree(FIRST_MOVE, player="O", rule=WIN_CON, gravity=GRAVITY, depth=1, max_depth=8)
+    draw_moves(board_tree, rows=ROWS, cols=COLS)
