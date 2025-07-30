@@ -194,7 +194,7 @@ if __name__ == "__main__":
         },
     }
 
-    GAME_TYPE = "connect-4"
+    GAME_TYPE = "tic-tac-toe"
     GAME = GAME_TYPES[GAME_TYPE]
     ROWS = GAME["ROWS"]
     COLS = GAME["COLS"]
@@ -205,5 +205,5 @@ if __name__ == "__main__":
     PLAY_CENTER_MOVE = (1, 1) if GAME_TYPE == "tic-tac-toe" else 3
     FIRST_MOVE = apply_move(INITIAL_BOARD_STATE, PLAY_CENTER_MOVE, player="X", gravity=GRAVITY)
 
-    board_tree = build_board_tree(FIRST_MOVE, player="O", rule=WIN_CON, gravity=GRAVITY, depth=1, max_depth=8)
+    board_tree = build_board_tree(FIRST_MOVE, player="O", rule=WIN_CON, gravity=GRAVITY, depth=1, max_depth=9)
     draw_moves(board_tree, rows=ROWS, cols=COLS)
